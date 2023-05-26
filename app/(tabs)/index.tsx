@@ -6,10 +6,6 @@ import { getCities, loginUser, registerUser } from '../../api/api-utils';
 
 export default function TabOneScreen() {
 
-  useEffect(() => {
-    // loginUser("clayhindman01@gmail.com", "password")
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>

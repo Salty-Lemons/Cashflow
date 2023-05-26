@@ -1,11 +1,11 @@
-import { initializeApp } from "firebase/app";
+import firebase, { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+// provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 provider.setCustomParameters({
   prompt: "select_account",
 });
@@ -77,13 +77,6 @@ export const logoutUser = () => {
   auth.signOut();
 };
 
-export const loginWithGoogle = async () => {
-  try {
-    const userCredential = await signInWithPopup(auth, provider);
-    const user = userCredential.user;
-    console.log(user);
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
+export const loginWithGoogle = () => {
+  console.log(auth);
 };

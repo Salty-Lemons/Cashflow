@@ -2,13 +2,14 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
+import { SplashScreen, Tabs } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+
 import Login from './Login';
 import Home from './Home';
 import Signup from './Signup';
-import ModalScreen from './modal';
+import Account from './Account';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,11 +50,10 @@ function RootLayoutNav() {
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false, gestureEnabled: false }} />
-        <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false}} />
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */} 
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false}} />
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="modal" component={ModalScreen} options={{ presentation: 'modal' }} />
+          <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} />
         </Stack.Navigator>
       </ThemeProvider>
     </>

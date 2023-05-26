@@ -11,7 +11,6 @@ export default function Login(props: any) {
   })
 
   const updateState = (key: string, value: string) => {
-    console.log(key, value)
     setState({
       ...state,
       [key]: value
@@ -48,13 +47,13 @@ export default function Login(props: any) {
         </Pressable>
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
-          <View style={{borderBottomColor: 'gray', borderBottomWidth: 2, flex: 1, marginRight: 10, opacity: 0.5}}></View>
+          <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginRight: 10, opacity: 0.5}}></View>
           <Text style={{marginBottom: -8}}>Or log in with</Text>
-          <View style={{borderBottomColor: 'gray', borderBottomWidth: 2, flex: 1, marginLeft: 10, opacity: 0.5}}></View>
+          <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginLeft: 10, opacity: 0.5}}></View>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '60%'}}>
-          <FontAwesome.Button name="google" backgroundColor="#4285F4" onPress={() => console.log()} >
+          <FontAwesome.Button name="google" backgroundColor="#4285F4" onPress={() => loginWithGoogle()} >
             Google
           </FontAwesome.Button>
           <FontAwesome.Button name="facebook" backgroundColor="#4285F4" onPress={() => console.log()}>
@@ -79,23 +78,24 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 40, 
-        borderColor: 'gray',
+        borderColor: '#474747',
         borderBottomWidth: 2,
         opacity: 0.75,
         width: "80%",
-        color: 'black',
+        color: '#2d2d2d',
         fontSize: 16
     },
     loginText: {
         fontSize: 20,
+        marginTop: 85,
         fontWeight: 'bold',
-        color: 'black'
+        color: '#2d2d2d'
     },
     loginPressable: {
         paddingHorizontal: 20,
         paddingVertical: 10,
-        backgroundColor: 'black',
-        borderRadius: 7
+        backgroundColor: "#2d2d2d",
+        borderRadius: 10
     },
     buttonText: {
         color: '#fff',
