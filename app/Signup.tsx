@@ -1,14 +1,15 @@
 import React from 'react'
-import { StyleSheet, TextInput, Pressable } from 'react-native'
+import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
-import { FontAwesome } from '@expo/vector-icons'
 import { registerUser } from '../api/api-utils'
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default function Signup(props: any) {
   const [state, setState] = React.useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   })
 
   const updateState = (key: string, value: string) => {
@@ -19,58 +20,106 @@ export default function Signup(props: any) {
   }
 
   const signup = () => {
+    if (state.password !== state.confirmPassword) {
+      // TODO: Change this to a tooltip
+      alert("Passwords don't match")
+      return
+    }
     registerUser(state.email, state.password).then(user => {
       console.log(user)
       if (user !== undefined) {
         props.navigation.navigate('Home')
       }
+      setState({
+        email: '',
+        password: '',
+        confirmPassword: ''
+      })
     })
   }
 
   return (
     <View style={styles.container}>
-        <Text style={styles.loginText}>Signup</Text>
-        <TextInput 
-          placeholder="Email" 
-          value={state.email} 
-          style={styles.textInput} 
-          onChangeText={text => updateState('email', text)} 
+      <View style={styles.header}>
+        <Ionicons 
+          name="arrow-back-outline" 
+          size={24} 
+          color="#1bec0d" 
+          onPress={() => props.navigation.navigate('Login')}
         />
-        <TextInput 
-          placeholder="Password" 
-          value={state.password} 
-          secureTextEntry={true}
-          style={styles.textInput} 
-          onChangeText={text => updateState('password', text)}
-        />
-        <Pressable onPress={() => signup()} style={styles.loginPressable}>
-            <Text style={styles.buttonText}>Signup</Text>
-        </Pressable>
+      </View>
+        <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+        <View style={[styles.textInputContainer, styles.textInputContainerEmail]}>
+          <TextInput 
+            placeholder="Email" 
+            value={state.email} 
+            style={styles.textInput} 
+            onChangeText={text => updateState('email', text)} 
+          />
+        </View>
         
-        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
-          <View style={{borderBottomColor: 'gray', borderBottomWidth: 2, flex: 1, marginRight: 10, opacity: 0.5}}></View>
-          <Text style={{marginBottom: -8}}>Or log in with</Text>
-          <View style={{borderBottomColor: 'gray', borderBottomWidth: 2, flex: 1, marginLeft: 10, opacity: 0.5}}></View>
+        <View style={[styles.textInputContainer, styles.textInputContainerEmail]}>
+          <TextInput 
+            placeholder="Password" 
+            value={state.password} 
+            secureTextEntry={true}
+            style={styles.textInput} 
+            onChangeText={text => updateState('password', text)}
+          />
         </View>
-
-        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '60%'}}>
-          <FontAwesome.Button name="google" backgroundColor="#4285F4" onPress={() => console.log()} >
-            Google
-          </FontAwesome.Button>
-          <FontAwesome.Button name="facebook" backgroundColor="#4285F4" onPress={() => console.log()}>
-            Facebook
-          </FontAwesome.Button>
+        <View style={styles.textInputContainer}>
+          <TextInput 
+            placeholder="Confirm Password" 
+            value={state.confirmPassword} 
+            secureTextEntry={true}
+            style={styles.textInput} 
+            onChangeText={text => updateState('confirmPassword', text)}
+          />
         </View>
-
-        <View style={{flexDirection: 'row', marginTop: 20}}> 
-          <Text>Already have an account?</Text>
-          <Pressable onPress={() => props.navigation.navigate('Login')}> 
-            <Text style={{color: 'blue'}}> Login</Text>
+        
+        <View style={{flexDirection: 'row', width: '80%', justifyContent: 'center'}}>
+          <Pressable onPress={() => signup()} style={styles.loginPressable}>
+              <Text style={styles.buttonText}>Sign Up</Text>
           </Pressable>
         </View>
-    </View>
+        
 
-    )
+        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
+          {/* <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginRight: 10, opacity: 0.5}}></View> */}
+          <Text>- Or sign up with -</Text>
+          {/* <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginLeft: 10, opacity: 0.5}}></View> */}
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%', marginBottom: '16%'}}>
+          <View style={styles.socialMediaIcon}>
+            <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-google-48.png')}
+            />
+          </View>
+          <View style={styles.socialMediaIcon}>
+            <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-facebook-48.png')}
+            />
+          </View>
+          
+          <View style={styles.socialMediaIcon}>
+            <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-twitter-48.png')}
+            />
+          </View>
+        </View>
+
+        {/* <View style={{flexDirection: 'row'}}> 
+          <Text>Already have an account?</Text>
+          <Pressable onPress={() => props.navigation.navigate('Signup')}> 
+            <Text style={{color: '#1bec0d'}}> Sign in</Text>
+          </Pressable>
+        </View> */}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -80,29 +129,70 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
     },
     textInput: {
-        height: 40, 
-        borderColor: 'gray',
-        borderBottomWidth: 1,
-        width: "80%",
-        margin: 10,
+        paddingBottom: 15,
+        paddingLeft: 10,
+        opacity: 0.75,
+        width: "100%",
         color: '#2d2d2d',
-        fontSize: 16
+        fontSize: 16,
+        marginBottom: '-5%'        
     },
-    loginText: {
+    logo: {
         fontSize: 20,
-        fontWeight: 'bold',
-        color: '#2d2d2d',
-        marginTop: 85,
+        marginTop: '10%',
+        width: 300,
+        height: 100
     },
     loginPressable: {
-        margin: 10,
         paddingHorizontal: 20,
+        width: "100%",
+        height: 50,
         paddingVertical: 10,
-        backgroundColor: '#2d2d2d',
-        borderRadius: 10
+        backgroundColor: "#1bec0d",
+        opacity: 0.85,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '-5%',
+        shadowOffset: { width: 1, height: 3 },
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+        elevation: 2,
     },
     buttonText: {
         color: '#fff',
         fontSize: 20,
+    },
+    socialMediaIcon: {
+      backgroundColor: 'white',
+      width: 85,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 8,
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: 'black',
+      shadowOpacity: 0.2,
+      elevation: 3,
+    },
+    textInputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      width: '80%',
+      height: 50,
+      shadowOffset: { width: 1, height: 3 },
+      shadowColor: 'black',
+      shadowOpacity: 0.2,
+      elevation: 2,
+      borderRadius: 10,
+    },
+    textInputContainerEmail: {
+      marginBottom: '-7%'
+    },
+    header: {
+      // position: 'absolute',
+      top: '5%',
+      width: "80%",
     }
 })

@@ -1,11 +1,12 @@
 import firebase, { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore/lite";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -22,21 +23,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-// provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-provider.setCustomParameters({
-  prompt: "select_account",
-});
 
-export const getCities = async () => {
-  const citiesCol = collection(db, "cities");
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map((doc) => {
-    console.log(doc.data());
-    doc.data();
-  });
-  return cityList;
-};
-
+// Create a user with email and password
 export const registerUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -52,6 +40,7 @@ export const registerUser = async (email, password) => {
   }
 };
 
+// Login a user with email and password
 export const loginUser = async (email, password) => {
   console.log(email, password);
   try {
@@ -68,15 +57,36 @@ export const loginUser = async (email, password) => {
   }
 };
 
+// Get the current user
 export const getUser = () => {
   console.log(auth.currentUser);
   return auth.currentUser;
 };
 
+// Logout the current user
 export const logoutUser = () => {
-  auth.signOut();
+  console.log("Logging out");
+  signOut(auth)
+    .then(() => {
+      console.log("User signed out");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-export const loginWithGoogle = () => {
-  console.log(auth);
+// TODO: Implement Google Login
+// Not working yet
+export const loginWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+
+    console.log(user, token);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
 };
