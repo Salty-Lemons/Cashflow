@@ -28,7 +28,7 @@ export default function Signup(props: any) {
     registerUser(state.email, state.password).then(user => {
       console.log(user)
       if (user !== undefined) {
-        props.navigation.navigate('Home')
+        props.navigation.navigate('GoalSetter')
       }
       setState({
         email: '',
@@ -43,7 +43,7 @@ export default function Signup(props: any) {
       <View style={styles.header}>
         <Ionicons 
           name="arrow-back-outline" 
-          size={24} 
+          size={30} 
           color="#1bec0d" 
           onPress={() => props.navigation.navigate('Login')}
         />
@@ -86,7 +86,7 @@ export default function Signup(props: any) {
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
           {/* <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginRight: 10, opacity: 0.5}}></View> */}
-          <Text>- Or sign up with -</Text>
+          <Text style={{fontSize: 16}}>- Or sign up with -</Text>
           {/* <View style={{borderBottomColor: '#474747', borderBottomWidth: 2, flex: 1, marginLeft: 10, opacity: 0.5}}></View> */}
         </View>
 
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         marginBottom: '-5%'        
     },
     logo: {
-        fontSize: 20,
+        // fontSize: 20,
         marginTop: '10%',
         width: 300,
         height: 100

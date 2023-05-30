@@ -10,6 +10,7 @@ import Login from './Login';
 import Home from './Home';
 import Signup from './Signup';
 import Account from './Account';
+import GoalSetter from './GoalSetter';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,6 +55,7 @@ function RootLayoutNav() {
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false}} />
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
           <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} />
+          <Stack.Screen name="GoalSetter" component={GoalSetter} options={{ headerShown: false, presentation: "modal" }} />
         </Stack.Navigator>
       </ThemeProvider>
     </>

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     height: '18%',
-    backgroundColor:'#2a2c33',
+    backgroundColor:"#222E50",
     paddingTop: 60,
     paddingLeft: 20,
     borderBottomLeftRadius: 20,

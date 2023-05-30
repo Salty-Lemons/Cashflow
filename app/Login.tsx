@@ -1,10 +1,18 @@
 import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
+import AppLoading from "expo-app-loading";
 import { loginUser, loginWithGoogle } from '../api/api-utils'
-import { FontAwesome } from '@expo/vector-icons'
+import {
+  useFonts,
+  Krub_400Regular
+} from "@expo-google-fonts/dev";
 
 export default function Login(props: any) {
+  const [loaded] = useFonts({
+    Krub: require("../assets/fonts/Krub-Regular.ttf"),
+  });
+
   const [state, setState] = React.useState({
     email: '',
     password: ''
@@ -29,7 +37,9 @@ export default function Login(props: any) {
       }
     })
   }
-
+  if (!loaded) {
+    return <AppLoading />;
+  } else {
   return (
     <View style={styles.container}>
         <Image source={require('../assets/images/logo.png')} style={styles.logo} />
@@ -60,7 +70,7 @@ export default function Login(props: any) {
         
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
-          <Text style={{fontSize: 16}}>- Or log in with -</Text>
+          <Text style={{fontSize: 16, fontFamily: "Krub"}}>- Or log in with -</Text>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%', marginBottom: '16%'}}>
@@ -94,6 +104,7 @@ export default function Login(props: any) {
     </View>
   )
 }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -109,10 +120,10 @@ const styles = StyleSheet.create({
         color: '#2d2d2d',
         fontSize: 16,
         marginBottom: '-5%',   
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: "Krub",
     },
     logo: {
-        fontSize: 20,
         marginTop: '16%',
         width: 300,
         height: 100
