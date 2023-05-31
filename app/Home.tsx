@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, TextInput, Pressable } from 'react-native'
 import { View, Text } from '../components/Themed'
 import { SafeAreaView } from 'react-native-safe-area-context';

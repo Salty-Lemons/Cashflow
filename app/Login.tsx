@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
-import AppLoading from "expo-app-loading";
 import { loginUser, loginWithGoogle } from '../api/api-utils'
 import {
   useFonts,
@@ -37,9 +36,6 @@ export default function Login(props: any) {
       }
     })
   }
-  if (!loaded) {
-    return <AppLoading />;
-  } else {
   return (
     <View style={styles.container}>
         <Image source={require('../assets/images/logo.png')} style={styles.logo} />
@@ -103,7 +99,6 @@ export default function Login(props: any) {
         </View>
     </View>
   )
-}
 }
 
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import firebase, { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -23,6 +23,41 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+
+// Create a new user document in the database
+export const createUserDocument = async (targetDaily) => {
+  try {
+    const user = getUser();
+    const { uid, email } = user;
+    const docRef = await setDoc(doc(db, "users", uid), {
+      email,
+      displayName: "",
+      points: 0,
+      targetDaily,
+      completedToday: 0,
+      completedTotal: 0,
+      streak: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    console.log("Document written with ID: ", uid);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+export const updateUserDocument = async (data) => {
+  try {
+    const user = getUser();
+    const { uid } = user;
+    const docRef = await setDoc(doc(db, "users", uid), data, {
+      merge: true,
+    });
+    console.log("Document written with ID: ", uid);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
 
 // Create a user with email and password
 export const registerUser = async (email, password) => {

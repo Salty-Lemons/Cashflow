@@ -2,17 +2,19 @@ import React from 'react'
 import { View, Text } from '../components/Themed'
 import { StyleSheet, Pressable } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler' 
+import { createUserDocument } from '../api/api-utils'
 
 export default function GoalSetter(props: any) {
 
     const [amount, setAmount] = React.useState("")
 
+    const handleSubmit = () => {
+        createUserDocument(amount)
+        props.navigation.navigate('Home')
+    }
+
     const handleChange = (value: any) => {
-        if (value.length === 1 && value !== '$') {
-            setAmount(`$${value}`)
-        } else {
-            setAmount(value)
-        }
+        setAmount(value)
     }
 
   return (
@@ -31,7 +33,7 @@ export default function GoalSetter(props: any) {
             </View>
 
             <View style={{flexDirection: 'row', width: '50%', justifyContent: 'center'}}>
-            <Pressable onPress={() => props.navigation.navigate('Home')} style={styles.loginPressable}>
+            <Pressable onPress={handleSubmit} style={styles.loginPressable}>
                 <Text style={styles.buttonText}>Next</Text>
             </Pressable>
             </View>
