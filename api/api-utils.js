@@ -1,5 +1,5 @@
 import firebase, { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -54,6 +54,23 @@ export const updateUserDocument = async (data) => {
       merge: true,
     });
     console.log("Document written with ID: ", uid);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+export const getUserDocument = async () => {
+  try {
+    const user = getUser();
+    const { uid } = user;
+    const docRef = await getDoc(doc(db, "users", uid));
+    if (docRef.exists()) {
+      console.log("Document data:", docRef.data());
+      return docRef.data();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
   } catch (e) {
     console.error("Error adding document: ", e);
   }

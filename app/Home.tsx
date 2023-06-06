@@ -1,39 +1,46 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, TextInput, Pressable } from 'react-native'
+import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
-import { SafeAreaView } from 'react-native-safe-area-context';
 import AccountIcon from '../components/AccountIcon'
 import { ScrollView } from 'react-native-gesture-handler';
-import TestSurvey from '../components/TestSurvey';
+import { getUserDocument } from '../api/api-utils';
+import Navbar from '../components/Navbar';
+import WelcomeMessage from '../components/WelcomeMessage';
 
 export default function Home(props: any) {
+
+  const [userData, setUserData] = React.useState({})
+
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth()
+
+  const daysInMonth = 32 - new Date(year, month, 32).getDate()
+  useEffect(() => {
+    getUserDocument().then((data: any) => {
+      setUserData(data)
+    })
+
+
+  }, [])
 
   const handleIconClick = () => {
     props.navigation.navigate('Account')
   }
 
   return (
-    <SafeAreaView style={styles.homepage}>
-      <AccountIcon handleIconClick={handleIconClick} />
+    <View style={styles.homepage}>
+      <WelcomeMessage userData={userData} />
       <View style={styles.container}>
-        <View style={styles.wrapper}>
-          <Text style={{fontSize: 30, fontWeight: 'bold', color: '#fff', marginTop: 30}}>Surveys</Text>
-        </View>
-        {/* <View style={styles.angleRight}>
-        <View style={styles.angleLeft}></View> */}
-        {/* </View> */}
-        <ScrollView style={{width: '100%', height: '80%'}}>
-          <View style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
-            <TestSurvey/>
-            <TestSurvey/>
-            <TestSurvey/>
-            <TestSurvey/>
-            <TestSurvey/>
-            <TestSurvey/>
+        
+        {/* <ScrollView style={{width: '100%', height: '80%'}}> */}
+          <View>
+            <Text style={styles.dailyTargetText}>{((userData.targetDaily * 4) / daysInMonth).toFixed(0) - userData.completedToday} more surveys to reach daily target!</Text>
           </View>
-        </ScrollView>
+        {/* </ScrollView> */}
+        <Navbar handleIconClick={handleIconClick} />
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -42,39 +49,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent:'center',
-    backgroundColor: '#2a2c33',
+    height: '100%',
+    backgroundColor: '#fff',
   },
   container: {
+    flex: 1,
     width: '100%',
-    height: '110%',
+    marginTop: '2%',
+    backgroundColor:'#fff',
     alignItems: 'flex-start',
     justifyContent:'flex-start',
   },
-  wrapper: {
-    width: '100%',
-    height: '18%',
-    backgroundColor:"#222E50",
-    paddingTop: 60,
-    paddingLeft: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  angleRight: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#2a2c33',
-    justifyContent: 'flex-end', 
-    marginLeft: "auto",
-    marginTop:-5,
-  },
-  angleLeft: {
-    width: 80,
-    height: 71.75,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-end',
-    zIndex:3,
-    borderRadius: 50,
-    marginLeft: -29,
-    marginBottom: -26.5,
+  dailyTargetText: {
+    fontSize: 18,
+    marginTop: 10,
+    fontWeight: 'bold',
+    paddingHorizontal: '7%',
+    color: '#2a2c33',
   },
 })
