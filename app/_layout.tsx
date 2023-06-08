@@ -53,7 +53,7 @@ function RootLayoutNav() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, gestureEnabled: false }} />
           <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false}} />
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false, gestureEnabled: false}} />
           <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} />
           <Stack.Screen name="GoalSetter" component={GoalSetter} options={{ headerShown: false, presentation: "modal" }} />
         </Stack.Navigator>

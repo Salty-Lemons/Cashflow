@@ -2,15 +2,8 @@ import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
 import { loginUser, loginWithGoogle } from '../api/api-utils'
-import {
-  useFonts,
-  Krub_400Regular
-} from "@expo-google-fonts/dev";
 
 export default function Login(props: any) {
-  const [loaded] = useFonts({
-    Krub: require("../assets/fonts/Krub-Regular.ttf"),
-  });
 
   const [state, setState] = React.useState({
     email: '',
@@ -66,7 +59,7 @@ export default function Login(props: any) {
         
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
-          <Text style={{fontSize: 16, fontFamily: "Krub"}}>- Or log in with -</Text>
+          <Text style={{fontSize: 16}}>- Or log in with -</Text>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%', marginBottom: '16%'}}>
@@ -116,7 +109,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: '-5%',   
         fontWeight: 'bold',
-        fontFamily: "Krub",
     },
     logo: {
         marginTop: '16%',
@@ -134,10 +126,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '-5%',
-        shadowOffset: { width: 1, height: 3 },
+        shadowOffset: { width: 1, height: 2 },
         shadowColor: 'black',
         shadowOpacity: 0.2,
-        elevation: 2,
+        elevation: 1,
     },
     buttonText: {
         color: '#fff',
@@ -155,7 +147,7 @@ const styles = StyleSheet.create({
       shadowOffset: { width: 1, height: 1 },
       shadowColor: 'black',
       shadowOpacity: 0.2,
-      elevation: 3,
+      elevation: 1,
     },
     textInputContainer: {
       flexDirection: 'row',
@@ -163,10 +155,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       width: '80%',
       height: 50,
-      shadowOffset: { width: 1, height: 3 },
+      shadowOffset: { width: 1, height: 2 },
       shadowColor: 'black',
       shadowOpacity: 0.2,
-      elevation: 2,
+      elevation: 1,
       borderRadius: 10,
     },
     textInputContainerEmail: {

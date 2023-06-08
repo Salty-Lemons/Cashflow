@@ -6,7 +6,7 @@ export default function WelcomeMessage({userData}: {userData: any}) {
     <View style={styles.wrapper}>
         <View>
             <Text style={styles.welcomeText} >Welcome, {userData.displayName}</Text>
-            <Text style={styles.totalPointsText} >Total Points</Text>
+            <Text style={styles.totalPointsText} >Total Cashflow Points</Text>
             <Text style={styles.pointsText}>{(userData.points)}</Text>
         </View>
     </View>

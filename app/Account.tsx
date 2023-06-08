@@ -18,7 +18,7 @@ export default function Account(props: any) {
         <Pressable onPress={handleSignOut} >
             <Text>Sign Out</Text>
         </Pressable>
-        {/* <Navbar handleIconClick={handleIconClick} selected={selected} setSelected={setSelected} /> */}
+        <Navbar navigation={props.navigation} />
     </View>
   )
 }
