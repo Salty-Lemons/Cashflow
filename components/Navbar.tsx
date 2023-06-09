@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         paddingBottom: 30,
         paddingTop: 10,
+        zIndex:3
     },
     survey: {
         width: 60,
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
     },
     icon: {
         color: '#adabac',
+        padding: 10,
         opacity: 0.5,
+    },
+    active: {
+        opacity: 1,
     }
 });

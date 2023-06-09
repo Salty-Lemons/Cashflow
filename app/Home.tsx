@@ -6,6 +6,8 @@ import { getUserDocument } from '../api/api-utils';
 import Navbar from '../components/Navbar';
 import WelcomeMessage from '../components/WelcomeMessage';
 import { LineChart } from 'react-native-chart-kit';
+import TargetDaily from '../components/TargetDaily';
+import TestSurvey from '../components/TestSurvey';
 
 export default function Home(props: any) {
 
@@ -13,11 +15,6 @@ export default function Home(props: any) {
   const [completedToday, setCompletedToday] = React.useState(0)
   const [targetDaily, setTargetDaily] = React.useState(0)
 
-  const date = new Date()
-  const year = date.getFullYear()
-  const month = date.getMonth()
-
-  const daysInMonth = 32 - new Date(year, month, 32).getDate()
   useEffect(() => {
     setCompletedToday(userDocument.completedToday)
     setTargetDaily(userDocument.targetDaily)
@@ -30,11 +27,7 @@ export default function Home(props: any) {
       <View style={styles.container}>
         
         <ScrollView style={{width: '100%', height: '100%', paddingHorizontal: '7%',}}>
-          <Text style={styles.dailyTargetText}>{((targetDaily * 4) / daysInMonth).toFixed(0) - completedToday} more surveys to reach daily target!</Text>
-          <View style={styles.dailyTargetOutline}>
-            <View style={{ width: `${((1-(((targetDaily * 4) / daysInMonth) - completedToday) / (((targetDaily * 4) / daysInMonth).toFixed(0))) * 100)}%`, height: 25, borderRadius: 12, backgroundColor: '#1bec0d' }}></View>
-          </View>
-
+          <TargetDaily userDocument={userDocument}/>
           <View style={styles.weeklySummaryContainer}>
             <Text style={styles.weeklySummaryText}>Surveys Completed</Text>
             <LineChart
@@ -88,7 +81,6 @@ export default function Home(props: any) {
               bezier
               style={{
                 marginVertical: '5%',
-
                 borderRadius: 16,
               }}
             />
@@ -116,23 +108,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent:'flex-start',
   },
-  dailyTargetText: {
-    fontSize: 18,
-    marginTop: '10%',
-    fontWeight: 'bold',
-    color: '#2a2c33',
-    textAlign: 'center',
-  },
-  dailyTargetOutline: {
-    width: '100%',
-    height: 25,
-    borderRadius: 12,
-    backgroundColor: '#e6e6e6',
-    marginTop: '10%',
-  },
   weeklySummaryText: {
     fontSize: 18,
-    // marginTop: '15%',
     fontWeight: 'bold',
     color: '#2a2c33',
   },
