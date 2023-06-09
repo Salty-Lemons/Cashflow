@@ -3,7 +3,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import {createStackNavigator} from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Tabs } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
 import Login from './Login';
@@ -11,6 +11,7 @@ import Home from './Home';
 import Signup from './Signup';
 import Account from './Account';
 import GoalSetter from './GoalSetter';
+import SurveysTab from './SurveysTab';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,16 +47,49 @@ const Stack = createStackNavigator();
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const [userData, setUserData] = React.useState({})
+  const [userDocument, setUserDocument] = React.useState({})
 
   return (
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false, gestureEnabled: false }} />
-          <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false}} />
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false, gestureEnabled: false}} />
+          <Stack.Screen 
+            name="Login" 
+            component={Login}
+            options={{ headerShown: false, gestureEnabled: false }} 
+            initialParams={{
+              userData: userData,
+              setUserData: setUserData,
+              setUserDocument: setUserDocument
+            }} 
+          />
+          <Stack.Screen 
+            name="Signup" 
+            component={Signup} 
+            options={{ headerShown: false}} 
+            initialParams={{
+              userData: userData,
+              setUserData: setUserData,
+            }}  
+          />
+          <Stack.Screen 
+            name="Home" 
+            component={Home} 
+            options={{ headerShown: false, gestureEnabled: false}} 
+            initialParams={{
+              userData: userData,
+              userDocument,
+            }} />
           <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} />
           <Stack.Screen name="GoalSetter" component={GoalSetter} options={{ headerShown: false, presentation: "modal" }} />
+          <Stack.Screen 
+            name="SurveysTab" 
+            component={SurveysTab} 
+            options={{ headerShown: false, gestureEnabled: false}} 
+            initialParams={{
+              userDocument,
+            }} />
         </Stack.Navigator>
       </ThemeProvider>
     </>

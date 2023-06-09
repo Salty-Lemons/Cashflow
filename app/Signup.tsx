@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 export default function Signup(props: any) {
+
+  const {userData, setUserData} = props.route.params
   const [state, setState] = React.useState({
     email: '',
     password: '',
@@ -28,6 +30,7 @@ export default function Signup(props: any) {
     registerUser(state.email, state.password).then(user => {
       console.log(user)
       if (user !== undefined) {
+        setUserData(user)
         props.navigation.navigate('GoalSetter')
       }
       setState({

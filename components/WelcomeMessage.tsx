@@ -1,13 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Platform, Text } from 'react-native'
 
-export default function WelcomeMessage({userData}: {userData: any}) {
+export default function WelcomeMessage({userDocument, isHomepage}: {userDocument: any, isHomepage: any}) {
+
   return (
-    <View style={styles.wrapper}>
+    <View style={isHomepage?styles.wrapper:styles.wrapperNoHomepage}>
         <View>
-            <Text style={styles.welcomeText} >Welcome, {userData.displayName}</Text>
+            {isHomepage?<Text style={styles.welcomeText} >Welcome, {userDocument.displayName}</Text>:<View style={{ marginTop: Platform.OS === 'ios' ? 35: 20 }}/>}
             <Text style={styles.totalPointsText} >Total Cashflow Points</Text>
-            <Text style={styles.pointsText}>{(userData.points)}</Text>
+            <Text style={styles.pointsText}>{(userDocument.points)}</Text>
         </View>
     </View>
   )
@@ -45,4 +46,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: '7%',
         color: '#2a2c33',
     },
+    wrapperNoHomepage: {
+        width: '100%',
+        height: '15%',
+        backgroundColor:"#fff",
+        justifyContent: 'flex-start',
+        paddingTop: 10,
+        shadowOffset: { width: 1, height: 3 },
+        shadowColor: 'black',
+        shadowOpacity: 0.15,
+        elevation: 2,
+    }
 });

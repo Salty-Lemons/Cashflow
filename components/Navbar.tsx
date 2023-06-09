@@ -15,9 +15,11 @@ export default function Navbar(props: any) {
         </Pressable>
         
         <MaterialIcons name="attach-money" size={30} style={styles.icon} />
-        <View style={styles.survey}>
-            <MaterialCommunityIcons name="clipboard-check-outline" size={30} style={styles.icon} />
-        </View>
+        <Pressable onPress={() => handleIconClick("SurveysTab")} >
+            <View style={styles.survey}>
+                <MaterialCommunityIcons name="clipboard-check-outline" size={30} style={styles.icon} />
+            </View>
+        </Pressable>
         <MaterialCommunityIcons name="finance" size={30} style={styles.icon} />
         <AccountIcon handleIconClick={() => handleIconClick("Account")}/>
     </View>

@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import { View, Text } from '../components/Themed'
-import { loginUser, loginWithGoogle } from '../api/api-utils'
+import { loginUser, loginWithGoogle, getUserDocument } from '../api/api-utils'
 
 export default function Login(props: any) {
 
+  const {userData, setUserData, userDocument, setUserDocument} = props.route.params;
   const [state, setState] = React.useState({
     email: '',
     password: ''
@@ -21,14 +22,23 @@ export default function Login(props: any) {
     loginUser(state.email, state.password).then(user => {
       console.log(user)
       if (user !== undefined) {
-        props.navigation.navigate('Home')
-        setState({
-          email: '',
-          password: ''
-        })
+        setUserData(user)
+        callUserDocument();
       }
     })
   }
+
+  const callUserDocument = async () => {
+    await getUserDocument().then((data: any) => {
+        setUserDocument(data)
+    })
+    props.navigation.navigate('Home')
+    setState({
+      email: '',
+      password: ''
+    })
+  }
+
   return (
     <View style={styles.container}>
         <Image source={require('../assets/images/logo.png')} style={styles.logo} />

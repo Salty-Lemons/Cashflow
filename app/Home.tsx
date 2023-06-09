@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, TextInput, Pressable, Image, Dimensions } from 'react-native'
 import { View, Text } from '../components/Themed'
-import AccountIcon from '../components/AccountIcon'
 import { ScrollView } from 'react-native-gesture-handler';
 import { getUserDocument } from '../api/api-utils';
 import Navbar from '../components/Navbar';
@@ -10,7 +9,7 @@ import { LineChart } from 'react-native-chart-kit';
 
 export default function Home(props: any) {
 
-  const [userData, setUserData] = React.useState({})
+  const {userData, userDocument} = props.route.params
   const [completedToday, setCompletedToday] = React.useState(0)
   const [targetDaily, setTargetDaily] = React.useState(0)
 
@@ -20,16 +19,14 @@ export default function Home(props: any) {
 
   const daysInMonth = 32 - new Date(year, month, 32).getDate()
   useEffect(() => {
-    getUserDocument().then((data: any) => {
-      setUserData(data)
-      setCompletedToday(data.completedToday)
-      setTargetDaily(data.targetDaily)
-    })
+    setCompletedToday(userDocument.completedToday)
+    setTargetDaily(userDocument.targetDaily)
   }, [])
 
+  console.log("userDocument",userDocument)
   return (
     <View style={styles.homepage}>
-      <WelcomeMessage userData={userData} />
+      <WelcomeMessage userDocument={userDocument} isHomepage={true} />
       <View style={styles.container}>
         
         <ScrollView style={{width: '100%', height: '100%', paddingHorizontal: '7%',}}>
