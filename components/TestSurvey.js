@@ -11,9 +11,9 @@ export default function TestSurvey() {
         backgroundColor: "#1bec0d",
         opacity: 0.7,
         margin: 10,
-        borderRadius: '25%',
+        borderRadius: 25,
         shadowOffset: { width: 1, height: 2 },
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOpacity: 0.3,
         elevation: 2,
       }}

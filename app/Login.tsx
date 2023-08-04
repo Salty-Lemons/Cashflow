@@ -20,7 +20,6 @@ export default function Login(props: any) {
 
   const login = () => {
     loginUser(state.email, state.password).then(user => {
-      console.log(user)
       if (user !== undefined) {
         setUserData(user)
         callUserDocument();
@@ -142,7 +141,8 @@ const styles = StyleSheet.create({
         elevation: 1,
     },
     buttonText: {
-        color: '#fff',
+        // color: '#fff',
+        color: '#2a2c33',
         fontWeight: "600",
         fontSize: 20,
     },

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet, TextInput, Pressable, Image, Dimensions } from 'react-native'
 import { View, Text } from '../components/Themed'
 import { ScrollView } from 'react-native-gesture-handler';
-import { getUserDocument } from '../api/api-utils';
+import { getUserDocument, makePollFishRequest } from '../api/api-utils';
 import Navbar from '../components/Navbar';
 import WelcomeMessage from '../components/WelcomeMessage';
 import { LineChart } from 'react-native-chart-kit';

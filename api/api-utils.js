@@ -8,16 +8,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBFSSFrRHGHgL4bPBGWBACj_83-kZi7PIM",
-  authDomain: "lemonads-9fbfb.firebaseapp.com",
-  projectId: "lemonads-9fbfb",
-  storageBucket: "lemonads-9fbfb.appspot.com",
-  messagingSenderId: "564630840177",
-  appId: "1:564630840177:web:ad6b15ace8bef6cde00cd0",
-  measurementId: "G-5JN8F6Y7H0",
-};
+import { firebaseConfig, pollFishApiKey } from "../secrets";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -53,6 +44,7 @@ export const updateUserDocument = async (data) => {
     const docRef = await setDoc(doc(db, "users", uid), data, {
       merge: true,
     });
+    getUserDocument();
     console.log("Document written with ID: ", uid);
   } catch (e) {
     console.error("Error adding document: ", e);
@@ -102,7 +94,7 @@ export const loginUser = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (error) {
     console.log(error);
