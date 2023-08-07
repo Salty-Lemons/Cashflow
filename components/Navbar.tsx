@@ -14,7 +14,10 @@ export default function Navbar(props: any) {
             <AntDesign name="home" size={30} style={styles.icon} />
         </Pressable>
         
-        <MaterialIcons name="attach-money" size={30} style={styles.icon} />
+        <Pressable onPress={() => handleIconClick("RedeemTab")} >
+            <MaterialIcons name="attach-money" size={30} style={styles.icon} />
+        </Pressable>
+
         <Pressable onPress={() => handleIconClick("SurveysTab")} >
             <View style={styles.survey}>
                 <MaterialCommunityIcons name="clipboard-check-outline" size={30} style={styles.icon} />

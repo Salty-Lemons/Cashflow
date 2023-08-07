@@ -16,25 +16,6 @@ export default function SurveysTab(props: any) {
     var builder = new RNPollfish.Builder('de9e8cce-4afc-4190-8e3b-fe27b437ad2e', '3ff4f637-9651-47b1-bada-e4c08763f1ff')
         .rewardMode(true);
     
-    RNPollfish.init(builder.build());
-
-    builder.indicatorPosition(RNPollfish.Position.middleLeft)
-        .indicatorPadding(10)
-        .offerwallMode(false)
-        .rewardMode(true)
-        .releaseMode(false)
-        .requestUUID('REQUEST_UUID')
-        .userProperties({
-            gender: '1',
-            education: '1',
-        })
-        .clickId('CLICK_ID')
-        .userId(userDocument.uid)
-        .signature('SINGNATURE')
-        .rewardInfo({
-            rewardName: 'Points',
-            rewardConversion: 1.0
-        });
 
     RNPollfish.addEventListener(RNPollfish.PollfishSurveyNotAvailableListener, () => {
         console.log("Pollfish Survey Not Available");
@@ -43,7 +24,7 @@ export default function SurveysTab(props: any) {
     RNPollfish.addEventListener(RNPollfish.PollfishSurveyCompletedListener, (event: any) => {
         updateUserDocument({
             completedToday: userDocument.completedToday + 1,
-            totalCompleted: userDocument.totalCompleted + 1,
+            completedTotal: userDocument.completedTotal + 1,
             points: userDocument.points + parseInt(event.surveyCPA),
         })
         console.log(typeof(event.rewardValue))
@@ -51,7 +32,25 @@ export default function SurveysTab(props: any) {
     });
 
     const searchForSurvey = () => {
-        
+        RNPollfish.init(builder.build());
+
+        builder.indicatorPosition(RNPollfish.Position.middleLeft)
+            .indicatorPadding(10)
+            .offerwallMode(false)
+            .rewardMode(true)
+            .releaseMode(false)
+            .requestUUID('REQUEST_UUID')
+            .userProperties({
+                gender: '1',
+                education: '1',
+            })
+            .clickId('CLICK_ID')
+            .userId(userDocument.uid)
+            .signature('SINGNATURE')
+            .rewardInfo({
+                rewardName: 'Points',
+                rewardConversion: 1.0
+            });
         
         RNPollfish.addEventListener(RNPollfish.PollfishSurveyReceivedListener, (event: any) => {
             if (event === undefined) {

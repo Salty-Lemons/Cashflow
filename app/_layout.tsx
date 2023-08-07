@@ -12,6 +12,7 @@ import Signup from './Signup';
 import Account from './Account';
 import GoalSetter from './GoalSetter';
 import SurveysTab from './SurveysTab';
+import RedeemTab from './RedeemTab';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -86,6 +87,13 @@ function RootLayoutNav() {
           <Stack.Screen 
             name="SurveysTab" 
             component={SurveysTab} 
+            options={{ headerShown: false, gestureEnabled: false}} 
+            initialParams={{
+              userDocument,
+            }} />
+            <Stack.Screen 
+            name="RedeemTab" 
+            component={RedeemTab} 
             options={{ headerShown: false, gestureEnabled: false}} 
             initialParams={{
               userDocument,
